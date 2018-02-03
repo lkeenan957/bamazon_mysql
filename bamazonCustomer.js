@@ -15,6 +15,11 @@ inquirer.prompt([
     type: 'input',
     name: 'id',
     message: 'Enter the Item ID of the product you would like to buy?',
+    // validate: validateNum(id)
+    //         {
+    //          var isValid = !_.isNaN(parseInt(id));
+    //          return isValid || "id should be a number!";
+    //         }
   },
   {
     type: 'input',
@@ -26,7 +31,8 @@ inquirer.prompt([
   console.log('quan ' + ans.quantity);
   // showInventory();
   checkOrder(ans.id, ans.quantity)
-})
+});
+
 
 // function showInventory(){
 //   connection.query('SELECT item_id, product_name, department_name, price, stock_quantity FROM products', function(error, results, fields){
@@ -41,10 +47,10 @@ inquirer.prompt([
 // }
 
 function checkOrder(id, quantity){
-  connection.query('SELECT stock_quantity, price, product_name, item_id FROM products WHERE item_id = ?', [id], function(error, results, fields){
+  connection.query('SELECT stock_quantity, price, product_name, item_id, product_sales FROM products WHERE item_id = ?', [id], function(error, results, fields){
     if(error) throw error;
 
-    if(JSON.parse(results[0].stock_quantity >= quantity)){
+    if(results[0].stock_quantity >= quantity){
       //+++++++++++++++++
       //GETTING THE COST
       console.log('Price: '+ JSON.parse(results[0].price));
@@ -59,13 +65,20 @@ function checkOrder(id, quantity){
       console.log(newQuantity);
       connection.query('UPDATE products SET stock_quantity = ? WHERE item_id = ?', [newQuantity, id], function(error, results, fields){
         if(error) throw error;
+        // connection.end();
+      })
+
+      //+++++++++++++++++
+      //UPDATING THE products table FOR product sales CHANGE
+      connection.query('UPDATE products SET product_sales = ? WHERE item_id = ?', [cost, id], function(error, results, fields){
+        if(error) throw error;
         connection.end();
       })
-    }
-    else{
-      console.log('Insufficient quanity!');
-    }
+
+
+  }else{
+    console.log('Insufficient quanity!');
+  }
 
   })
-
 }

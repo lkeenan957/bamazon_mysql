@@ -22,7 +22,9 @@ VALUES ("Binder", "Office", 2.30, 30),
         ("Chocolate", "Snacks", 4.99, 105),
         ("Chedder Cheese", "Dairy", 2.00, 30),
         ("Whole Milk", "Dairy", 2.29, 35),
-        ("Marker", "Office", 0.99, 47);
+        ("Marker", "Office", 0.99, 47)
+        ("Toffee", "Snacks", 0.50, 4)
+        ("Envelopes", "Office", 1.00, 5);
 
   mysql> select * from products;
   +---------+----------------+-----------------+-------+----------------+
@@ -40,3 +42,5 @@ VALUES ("Binder", "Office", 2.30, 30),
   |      10 | Marker         | Office          |  0.99 |             47 |
   +---------+----------------+-----------------+-------+----------------+
   10 rows in set (0.02 sec)
+
+  

@@ -27,8 +27,8 @@ inquirer.prompt([
     message: 'How many units?'
   }
 ]).then(function(ans){
-  console.log('id: '+ ans.id);
-  console.log('quan ' + ans.quantity);
+  // console.log('id: '+ ans.id);
+  // console.log('quan ' + ans.quantity);
   // showInventory();
   checkOrder(ans.id, ans.quantity)
 });
@@ -53,7 +53,7 @@ function checkOrder(id, quantity){
     if(results[0].stock_quantity >= quantity){
       //+++++++++++++++++
       //GETTING THE COST
-      console.log('Price: '+ JSON.parse(results[0].price));
+
       var unitPrice = JSON.parse(results[0].price);
       var cost = quantity * JSON.parse(results[0].price);
       console.log("Your total cost to order " + results[0].product_name + '(Id No: ' + results[0].item_id  + ') will be: $' + cost  );
@@ -62,7 +62,7 @@ function checkOrder(id, quantity){
       //UPDATING THE TABLE FOR QUANTITY CHANGE
       console.log('_________________________');
       var newQuantity = JSON.parse(results[0].stock_quantity) - quantity;
-      console.log(newQuantity);
+      
       connection.query('UPDATE products SET stock_quantity = ? WHERE item_id = ?', [newQuantity, id], function(error, results, fields){
         if(error) throw error;
         // connection.end();

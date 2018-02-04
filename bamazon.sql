@@ -35,8 +35,8 @@ VALUES ("Binder", "Office", 2.30, 30),
 ALTER TABLE products ADD COLUMN product_sales DECIMAL(4,2);
 
 INSERT INTO departments(department_name, over_head_costs)
-VALUES ('Office', 1000),
-        ('Diary', 6000),
-        ('Snacks', 2000);
+VALUES ('Office', 30),
+        ('Diary', 40),
+        ('Snacks', 50);
 
 DELETE FROM departments WHERE department_id >= 0
